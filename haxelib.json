@@ -5,7 +5,7 @@
 	"description": "A cross platform tool to deal with haxelib libraries",
 	"contributors": ["wighawag"],
 	"releasenote": "Add haxelib.json ready to release to new haxelib with new haxelib fixes .",
-	"version": "2.0.2-wighawag",
+	"version": "2.0.3",
 	"url": "http://github.com/wighawag/MassiveLib",
 	"dependencies": 
 	{

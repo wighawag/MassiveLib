@@ -76,10 +76,10 @@ class Log
 		
 		var i:Int = convertLogLevelToInt(level);
 	
-		if(i >= convertLogLevelToInt(logLevel) || level == LogLevel.console)
-		{
+		//if(i >= convertLogLevelToInt(logLevel) || level == LogLevel.console)
+		//{
 			logClient.print(message, level);
-		}
+		//}
 	
 		
 	}

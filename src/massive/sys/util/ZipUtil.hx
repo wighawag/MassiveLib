@@ -29,6 +29,8 @@
 
 package massive.sys.util;
 
+import massive.haxe.log.Log;
+
 import massive.sys.io.FileSys;
 import haxe.io.Path;
 import haxe.io.Bytes;
@@ -44,6 +46,7 @@ import neko.zip.Reader;
 import neko.zip.Writer;
 private typedef Entry = neko.zip.Reader.ZipEntry;
 #end
+
 
 class ZipUtil
 {
@@ -94,16 +97,25 @@ class ZipUtil
 			
 		for (file in files)
 		{
-			var stat = sys.FileSystem.stat(file.nativePath);
+			var size : Int = 0;
+			if(file.isDirectory){
+				size = 0;
+			}else{
+				var stat = sys.FileSystem.stat(file.nativePath);
+				size = stat.size;
+			}
+			
 
 			var bytes:Bytes = file.isDirectory ? null: sys.io.File.getBytes(file.nativePath);
 			var name:String = dir.getRelativePath(file) + (file.isDirectory ? File.seperator : "");
+			
+			
 			
 			#if haxe3
 			var entry:Entry = {
 				fileTime:date,
 				fileName:name,
-				fileSize:stat.size,
+				fileSize:size,
 				data:bytes,
 				dataSize:bytes != null ? bytes.length : 0,
 				compressed:false,
@@ -114,7 +126,7 @@ class ZipUtil
 			#else
 			var entry:Entry = {
 				fileName : name,
-				fileSize : stat.size,
+				fileSize : size,
 				fileTime : date,
 				compressed : false,
 				compressedSize : 0,
